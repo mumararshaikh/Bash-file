@@ -14,13 +14,20 @@
 function help_command {
 	echo "Invalid argument."
 	echo "Usage : "
+	echo "Apt function for update and upgrade : "
 	echo "./apt      : for checking update"
 	echo "./apt -all : for upgrade-dist"
 	echo "./apt -y   : for normal update"
 	echo "./apt -r   : for removing unwanted app"
 	echo "./apt -c   : for cleaning installed deb files"
+	
+	echo "Apt function for installing App : "
 	echo "./apt -i <package-name> : for installing pakage"
 	echo "./apt -u <package-name> : for uninstalling package"
+	
+	echo "dpkg function for installing local deb files : (beta) "
+	echo "./apt -local <package-name> : for installing deb pakage."
+	echo "./apt -list <dir> : for listing deb pakage in directory."
 }
 
 if [ $# -eq 0 ] ; then
