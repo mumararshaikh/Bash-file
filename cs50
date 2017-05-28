@@ -1,0 +1,39 @@
+#usr/bin/bash
+
+#CS50 IDE starter
+printf "+================================================================+\n"
+printf "|                   Starting Offline CS50 ide.                   |\n"
+printf "+----------------------------------------------------------------+\n"
+printf "|This Script is written for the error :                          |\n"
+printf "|'Error response from daemon: client is newer than server        |\n"
+printf "|(client API version: 1.24, server API version: 1.23)'           |\n"
+printf "|This error occur when you update docker without starting server.|\n"
+printf "+================================================================+\n"
+
+printf "================================ Output =========================\n"
+sudo docker ps
+printf "_________________________________________________________________\n"
+
+printf  "Select 'Y' if Error occured in Output.\n"
+read -p "Enter (Y/N) : " inp_c
+
+if [ $inp_c = "Y" ]
+then
+    printf "_________________________________________________________________\n"
+    printf "Restarting service\n"
+    sudo systemctl daemon-reload
+    sudo systemctl restart docker
+    
+    #start cs50 ide in docker
+    sudo docker start cs50ide
+    
+    #show after startup
+    printf "Docker started\nVisit to http://127.0.0.1:5050 to access Offline cs50 ide\n"
+    google-chrome http://127.0.0.1:5050
+    printf "_________________________________________________________________\n"
+else
+    printf "_________________________________________________________________\n"
+    printf "If Docker is running. Go to http://127.0.0.1:5050 to access cs50 ide\n"
+    google-chrome http://127.0.0.1:5050
+    printf "_________________________________________________________________\n"
+fi

@@ -1,0 +1,75 @@
+#!/bin/bash
+
+#V1
+#Script to update and upgrade
+#Usage ./update -all and ./update -y
+# -all for full upgrade
+# -y for normal upgrade
+# nothing to check update
+
+#V2
+#./update -r   : for removing unwanted app"
+#./update -c   : for cleaning installed deb files
+
+function help_command {
+	echo "Invalid argument."
+	echo "Usage : "
+	echo "./apt      : for checking update"
+	echo "./apt -all : for upgrade-dist"
+	echo "./apt -y   : for normal update"
+	echo "./apt -r   : for removing unwanted app"
+	echo "./apt -c   : for cleaning installed deb files"
+	echo "./apt -i <package-name> : for installing pakage"
+	echo "./apt -u <package-name> : for uninstalling package"
+}
+
+if [ $# -eq 0 ] ; then
+    sudo apt-get update
+    echo "Finished"
+
+elif [ $# -eq 1 ] ; then
+    if [ $1 = "-all" ] ; then
+        echo "Upgrading"
+        sudo apt-get update
+        sudo apt-get upgrade -y
+        sudo apt-get dist-upgrade -y
+        echo "Finished"
+	
+    elif [ $1 = "-y" ] ; then
+        echo "Updating"
+        sudo apt-get update
+        sudo apt-get upgrade -y
+        echo "Finished"
+    
+    elif [ $1 = "-r" ] ; then
+        echo "Cleaning"
+        sudo apt autoremove
+        echo "Finished"
+    
+    elif [ $1 = "-c" ] ; then
+        echo "Cleaning"
+        sudo apt-get clean
+        echo "Finished"
+    
+    else
+        help_command
+    fi
+
+elif [ $# -eq 2 ] ; then
+    if [ $1 = "-i" ] ; then
+        echo "Installing $2"
+        sudo apt-get install $2
+        echo "Finished"
+    
+    elif [ $1 = "-u" ] ; then
+        echo "Installing $2"
+        sudo apt-get remove $2
+        echo "Finished"
+    
+    else
+        help_command
+    fi
+
+else 
+	help_command
+fi
